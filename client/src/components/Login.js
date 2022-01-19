@@ -5,6 +5,22 @@ export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const loginData = (e) => {
+        e.preventDefault()
+        fetch("/loginv",{
+          method:"post",
+          headers:{
+              "Content-Type":"application/json"
+          },
+          body:{
+              email:email,
+              password:password
+          }
+        })
+        .then(res=>res.json())
+        .then(data=>{
+        })
+      }
 
     return (
         <div class="container flex-container">
@@ -24,7 +40,7 @@ export default function Login() {
                         <label for="inputPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" name="password" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" onClick={loginData}>Submit</button>
                     <a routerLink="/changepassword" class="btn btn-secondary ms-3">Forgot Password</a>
                 </form>
                 <br />
