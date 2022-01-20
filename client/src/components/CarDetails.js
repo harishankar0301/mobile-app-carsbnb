@@ -64,8 +64,8 @@ export default function CarDetails() {
 
             <div className="col-6 car-details">
                 <h1>{selectedCar.model}</h1>
-                <h2>Price: ₹{selectedCar.price}/day</h2>
-                <h2>Contact: {selectedCar.owner}</h2>
+                <h3>Price: ₹{selectedCar.price}/day</h3>
+                <h4>Contact: {selectedCar.owner}</h4>
                 <div className="description">
                     <h4>Description</h4>
                     <p>{selectedCar.description}</p>
@@ -76,7 +76,7 @@ export default function CarDetails() {
                     {
                         selectedCar.features.map((feature) => (
 
-                            <li className="feature">{feature}</li>
+                            <li key={feature} className="feature">{feature}</li>
                         ))
                     }
 

@@ -16,6 +16,7 @@ export default function CarListing({ bookingFn }) {
         setCarList(data.resp);
     }
 
+
     function bookingFn(uid) {
         let sessioninfo = JSON.parse(sessionStorage.getItem('info'));
         if (!sessioninfo) {

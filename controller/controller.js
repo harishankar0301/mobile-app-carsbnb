@@ -52,14 +52,15 @@ module.exports = function (app) {
     console.log(email);
     const files = req.files;
     files.forEach(async (element) => {
-      db.update({
-        image: fs.readFileSync(`./uploads/${element.originalname}`)
-      }, {
-        where: {
-          email: email
-        }
+      console.log(element.originalname);
+      // db.update({
+      //   image: fs.readFileSync(`./uploads/${element.originalname}`)
+      // }, {
+      //   where: {
+      //     email: email
+      //   }
 
-      })
+      // })
     })
 
   });

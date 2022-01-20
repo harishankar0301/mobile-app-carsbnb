@@ -1,12 +1,12 @@
 .head-div{
     min-height: calc(100vh - 56px);
-    background-image: url('../assets/bg2.jpg');
-    background-position: center;
+    background-image: url('../assets/bg3.jpg');
+    background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     gap: 170px;
     align-items: center;
     color: whitesmoke;
@@ -15,12 +15,12 @@
 }
 
 @media screen and (min-width: 992px){
-    h2{
+   .car-description h2{
         font-size: 3rem;
     }
 }
 @media screen and (max-width: 992px){
-    h2{
+   .car-description h2{
         font-size: 1.5rem;
     }
 }
