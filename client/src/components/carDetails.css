@@ -1,0 +1,28 @@
+.car-details{
+    margin-top: 3%;
+}
+.description{
+    border-top: 1px solid #e2e2e2;
+    padding-top: 10px;
+    width: 80%;
+}
+.carImg{
+    padding-left: 4%;
+    padding-top: 1%;
+}
+.carImg img{
+    max-width: 740px;
+    max-height: 400px;
+}
+.carImg button{
+    margin-top: 5%;
+}
+.bookButton{
+    margin: 0 auto;
+}
+ul{
+    display: inline;
+}
+li{
+    display: inline
+}

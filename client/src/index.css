@@ -1,0 +1,12 @@
+@media (min-width: 768px){
+    .w-md-50{
+      margin: auto 25%;
+    }
+  }
+  
+  .flex-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }

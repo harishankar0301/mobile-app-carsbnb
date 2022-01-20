@@ -1,47 +1,59 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const navigate = useNavigate()
     const loginData = (e) => {
         e.preventDefault()
-        fetch("/loginv",{
+        fetch("/api/loginv", {
           method:"post",
           headers:{
-              "Content-Type":"application/json"
+              "Content-Type": "application/json",
+              'Accept': 'application/json'
           },
-          body:{
+            body: JSON.stringify({
               email:email,
               password:password
           }
+            )
         })
         .then(res=>res.json())
         .then(data=>{
+            if (data['resp'] == "AUTHORIZED") {
+                sessionStorage.setItem('info', JSON.stringify({ email: email }))
+                navigate('/listing')
+            }
+            else {
+                alert("Not Authorized")
+            }
+        }).catch(err => {
+            console.log(err)
         })
       }
 
     return (
-        <div class="container flex-container">
-            <h1 class="mb-3 text-center">Login</h1>
-            <div class="card p-4 w-md-50">
+        <div className="container flex-container">
+            <h1 className="mb-3 text-center">Login</h1>
+            <div className="card p-4 w-md-50">
                 <p>
                     Welcome Back! Enter the details to get going!
                     <br />
-                    Don't have a account? <a routerLink="/signup">Sign up</a>
+                    Don't have a account? <Link to="/signup">Sign up</Link>
                 </p>
                 <form>
-                    <div class="mb-3">
-                        <label for="inputEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="emailId" id="inputEmail" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                    <div className="mb-3">
+                        <label htmlFor="inputEmail" className="form-label">Email address</label>
+                        <input type="email" className="form-control" name="emailId" id="inputEmail" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                    <div class="mb-3">
-                        <label for="inputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <div className="mb-3">
+                        <label htmlFor="inputPassword" className="form-label">Password</label>
+                        <input type="password" className="form-control" name="password" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
-                    <button type="submit" class="btn btn-primary" onClick={loginData}>Submit</button>
-                    <a routerLink="/changepassword" class="btn btn-secondary ms-3">Forgot Password</a>
+                    <button type="submit" className="btn btn-primary" onClick={loginData}>Submit</button>
+                    <Link to="/changepassword" className="btn btn-secondary ms-3">Forgot Password</Link>
                 </form>
                 <br />
                 <p>If you dont have an account and want to try the app<br />

@@ -110,9 +110,14 @@ module.exports = function (app) {
     let name = req.body.name;
     let pwd = req.body.password;
 
-    orm.query(`INSERT INTO users (email,name,password) values('${email}','${name}','${pwd}')`);
+    orm.query(`INSERT INTO users (email,name,password) values('${email}','${name}','${pwd}')`).catch((err) => {
+      console.log(err);
+      res.send({ resp: "ERROR" });
+    });
 
     res.send({ resp: "SUCCESS" });
+
+
   });
 
 

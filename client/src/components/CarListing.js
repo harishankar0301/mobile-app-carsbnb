@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function CarListing({ bookingFn }) {
 
     const [carList, setCarList] = useState([]);
 
+    const navigate = useNavigate()
     useEffect(() => {
         fecthCarList();
     }, [])
@@ -15,14 +16,31 @@ export default function CarListing({ bookingFn }) {
         setCarList(data.resp);
     }
 
-    function booking(car_uid) {
+    function bookingFn(uid) {
         let sessioninfo = JSON.parse(sessionStorage.getItem('info'));
         if (!sessioninfo) {
             alert("Please login")
-            this.router.navigate([`/login`]);
+            navigate('/login');
         }
         let modal = document.getElementById('bookingButton');
+        fetch('/api/book', {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ email: sessioninfo.email, uid: uid })
+        });
 
+        modal.click();
+
+    }
+
+
+    function carDetails(car_uid) {
+        sessionStorage.setItem('selectedCar', JSON.stringify(car_uid));
+        console.log(car_uid);
+        navigate('/car-details')
     }
     return (
         <div>
@@ -36,7 +54,7 @@ export default function CarListing({ bookingFn }) {
 
                     {carList.map((car) => (
                         <div key={car.uid} className="card h-100 car-card">
-                            <img width={400} height={250} src={car.pic} alt="car" className="card-img-top" />
+                            <img width={400} height={250} src={car.pic} alt="car" className="card-img-top" onClick={() => carDetails(car.uid)} />
                             <div className="card-body d-flex flex-column justify-content-end p-2">
                                 <h5 className="card-title text-center text-uppercase">{car.model}</h5>
                                 <p className="card-text">Price: ₹{car.price}/day</p>
@@ -46,6 +64,29 @@ export default function CarListing({ bookingFn }) {
                         </div>
 
                     ))}
+                </div>
+            </div>
+
+
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-backdrop="static" style={{ display: 'none' }} id="bookingButton" data-bs-target="#bookingConfirm">
+                Launch demo modal
+            </button>
+
+
+            <div className="modal fade" id="bookingConfirm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Booking Success!</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={window.location.reload}></button>
+                        </div>
+                        <div className="modal-body">
+                            The car has been reserved for you. You can pay and rent the car by visiting the store.
+                        </div>
+                        <div className="modal-footer">
+                            <Link to="/listing" type="button" className="btn btn-success" data-bs-dismiss="modal">Ok</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>);
