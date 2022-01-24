@@ -10,7 +10,7 @@ export default function CarListing() {
         fecthCarList();
     }, [])
 
-    const imgBasePath = 'https://carsbnbiblob.blob.core.windows.net/cars-cont/';
+    const imgBasePath = 'https://carsbnbiblob.blob.core.windows.net/cars-cont/';  
     async function fecthCarList() {
         const res = await fetch('/api/list');
         const data = await res.json();

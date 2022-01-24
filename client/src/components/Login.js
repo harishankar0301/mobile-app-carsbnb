@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function Login() {
+export default function Login({logIn}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
@@ -24,6 +24,7 @@ export default function Login() {
         .then(data=>{
             if (data['resp'] == "AUTHORIZED") {
                 sessionStorage.setItem('info', JSON.stringify({ email: email }))
+                logIn();
                 navigate('/listing')
             }
             else {
