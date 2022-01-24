@@ -79,11 +79,7 @@ export default function CarDetails() {
                             <li key={feature} className="feature">{feature}</li>
                         ))
                     }
-
-
-
                 </ul>
-
             </div >
         </div >
 

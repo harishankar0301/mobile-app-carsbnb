@@ -7,27 +7,45 @@ export default function NewCar() {
     const [brand, setBrand] = useState('')
     const [rate, setRate] = useState(0);
     const [imagesList, setImagesList] = useState({})
+    const [newFeature,setNewFeature]=useState('');
+    const [featureList,setFeatureList]=useState([])
+    const [description,setDescription]=useState('')
 
     function selectedAFile(images) {
 
         setImagesList(images);
     }
 
+    function featureHandler(e){
+        e.preventDefault();
+        if(newFeature!=null){
+            setFeatureList([...featureList,newFeature])
+            setNewFeature('')
+        }
+    }
+
     function submitHandler(e) {
         e.preventDefault();
-        // console.log(e);
-        console.log(imagesList);
 
+        console.log(imagesList);
+        let sessionstorage = JSON.parse(sessionStorage.getItem('info'));
+        let email=sessionstorage.email
+        console.log(email);
         const formData = new FormData()
         for (let key in imagesList) {
             console.log(key);
             console.log(imagesList[key]);
             formData.append('files', imagesList[key]);
         }
+        formData.append('carBrand',brand);
+        formData.append('rate',rate)
+        formData.append('features',featureList)
+        formData.append('description',description)
+        formData.append('email',email)
         for (var key of formData.entries()) {
             console.log(key[0] + ', ' + key[1]);
         }
-        
+
         fetch('/multipleFiles/email', {
             method: 'post',
             body: formData
@@ -52,9 +70,25 @@ export default function NewCar() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="inputImage" className="form-label">Rental rate (per day)</label>
-                        <input type="number" className="form-control" name="price" id="inputPrice" />
+                        <input type="number" className="form-control" name="price" id="inputPrice" value={rate} onChange={(e) => setRate(e.target.value)}/>
                     </div>
-
+                    <div className="mb-3">
+                        <label htmlFor="inputDescription" className="form-label">Description</label>
+                        <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" name="desc" id="inputDescription" />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="inputFeature" className="form-label">Features</label>
+                        <input type="text" className="form-control" name="features" id="inputFeature" value={newFeature} onChange={(e)=>setNewFeature(e.target.value)} />
+                    </div>
+                    <ul>
+                        {
+                        featureList.map((feature) => (
+                            <li key={feature} className="feature">{feature}</li>
+                        ))
+                        }
+                    </ul>
+                    <br/>
+                    <button onClick={featureHandler} className="btn btn-primary">Add Feature</button><br/><br/>
                     <button type="submit" onClick={submitHandler} className="btn btn-primary">Submit</button>
                 </form>
             </div>
