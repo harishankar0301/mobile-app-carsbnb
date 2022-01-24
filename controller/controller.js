@@ -1,6 +1,7 @@
 module.exports = function (app) { 
 const { v4: uuidv4 } = require('uuid');
 
+  const uploadtoAzure = require('./azure/fileUpload');
 
   var { QueryTypes } = require("sequelize");
   var Buffer = require('safe-buffer').Buffer
@@ -34,39 +35,26 @@ const { v4: uuidv4 } = require('uuid');
     //     res.send({ resp: "This is from backend!!!" });
     // })
 
-  
 
-  const storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-      callBack(null, "./uploads/");
-    },
-    filename: (req, file, callBack) => {
-      callBack(null, file.originalname);
-    },
-  });
 
-  const upload = multer({ storage: storage });
+  //Using multer for disk Storage
+  //{storage:storage}
+  // const storage = multer.diskStorage({
+  //   destination: (req, file, callBack) => {
+  //     callBack(null, "./uploads/");
+  //   },
+  //   filename: (req, file, callBack) => {
+  //     callBack(null, file.originalname);
+  //   },
+  // });
+
+  const upload = multer({ storage: multer.memoryStorage() });
 
   app.post("/multipleFiles/:mail", upload.array("files"), (req, res, next) => {
     //let email = req.params.mail;
+    //console.log(email);
     const files = req.files;
-    const brand=req.body.brand;
-    const rate=req.body.rate;
-    const description=req.body.description;
-    const email=req.body.email;
-    let uid = uuidv4();
-    orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description) values('${brand}','${uid}',0,'${email}','${rate}','${description}')`).catch((err) => {
-      console.log(err);
-      res.send({ resp: "ERROR" });
-    });
-    const featureList=req.body.features.split(",")
-    console.log(featureList)
-    featureList.map((feature)=>{
-      orm.query(`INSERT INTO features (uid,feature) values('${uid}','${feature}')`).catch((err) => {
-          console.log(err);
-          res.send({ resp: "ERROR" });
-      });
-    })
+    console.log(req);
     files.forEach(async (element) => {
       console.log(element.originalname);
       // db.update({
@@ -75,11 +63,41 @@ const { v4: uuidv4 } = require('uuid');
       //   where: {
       //     email: email
       //   }
-
       // })
     })
 
   });
+
+  //Add new car API
+  app.post("/api/newCar", upload.array("files"), function (req, res) {
+
+    const files = req.files;
+    const brand = req.body.carBrand;
+    const rate = req.body.rate;
+    const description = req.body.description;
+    const email = req.body.email;
+    let uid = uuidv4();
+  
+    // orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description) values('${brand}','${uid}',0,'${email}','${rate}','${description}')`,).catch((err) => {
+    //   console.log(err);
+    //   res.send({ resp: "ERROR" });
+    // });
+    // const featureList = req.body.features.split(",")
+    // console.log(featureList)
+    // featureList.map((feature) => {
+    //   orm.query(`INSERT INTO features (uid,feature) values('${uid}','${feature}')`).catch((err) => {
+    //     console.log(err);
+    //     res.send({ resp: "ERROR" });
+    //   });
+    // })
+    console.log(brand);
+    files.forEach(async (file) => {
+      uploadtoAzure('cars-cont', file, file.originalname);
+      
+    })
+
+  });
+
 
   app.get("/api/view/:mail", function (req, res) {
     let email = req.params.mail;

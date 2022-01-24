@@ -10,6 +10,7 @@ import NewCar from "./components/NewCar"
 import { useState, useEffect } from 'react';
 function App() {
 
+  const imgBasePath = 'https://carsbnbiblob.blob.core.windows.net/cars-cont/';  
   const navigate = useNavigate()
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,9 +34,9 @@ function App() {
       <Navbar isLoggedIn={isLoggedIn} logOut={logout} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/listing" element={<CarListing />} />
+        <Route path="/listing" element={<CarListing imgBasePath={imgBasePath} />} />
         <Route path="/login" element={<Login logIn={login} />} />
-        <Route path="/car-details" element={<CarDetails />} />
+        <Route path="/car-details" element={<CarDetails imgBasePath={imgBasePath} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/newcar" element={<NewCar/>}/>
       </Routes>

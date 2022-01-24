@@ -32,13 +32,13 @@ module.exports = function (app) {
         next();
     });
     
-    app.post('/api/carsup', function (req, res) {
-        let model = req.body.model;
-        let uid = uuidv4();
-        let pic = req.body.pic;
-        let owner = req.body.owner;
-        let price = req.body.price;
-        orm.query(`INSERT INTO cars (model,uid,isrented,pic,owner,price) values('${model}','${uid}',0,'${pic}','${owner}','${price}')`);
-        res.send({ resp: "SUCCESS" });
-      });
+    // app.post('/api/carsup', function (req, res) {
+    //     let model = req.body.model;
+    //     let uid = uuidv4();
+    //     let pic = req.body.pic;
+    //     let owner = req.body.owner;
+    //     let price = req.body.price;
+    //     orm.query(`INSERT INTO cars (model,uid,isrented,pic,owner,price) values('${model}','${uid}',0,'${pic}','${owner}','${price}')`);
+    //     res.send({ resp: "SUCCESS" });
+    //   });
 }

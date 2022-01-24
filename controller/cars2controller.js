@@ -31,8 +31,8 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/list", function (req, res) {
-        orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid `, { type: QueryTypes.SELECT }).then(
+    app.get("/api/list/:loadCount", function (req, res) {
+        orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid order by dateAdded DESC limit ${req.params.loadCount}`, { type: QueryTypes.SELECT }).then(
             function (op) {
                 res.send({ resp: op });
             }
@@ -46,7 +46,7 @@ module.exports = function (app) {
     })
 
     app.get("/api/specificCar/:id", function (req, res) {
-        orm.query(`select * from cars left join features on cars.uid=features.uid where cars.uid = ?`, {
+        orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid left join features on c.uid=features.uid where c.uid = ?`, {
             type: QueryTypes.SELECT,
             replacements: [req.params.id]
         }).then(

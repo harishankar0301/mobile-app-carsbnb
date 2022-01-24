@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+
 
 export default function NewCar() {
     console.log("first");
@@ -46,7 +46,7 @@ export default function NewCar() {
             console.log(key[0] + ', ' + key[1]);
         }
 
-        fetch('/multipleFiles/email', {
+        fetch('/api/newCar', {
             method: 'post',
             body: formData
         })
@@ -66,7 +66,7 @@ export default function NewCar() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="inputPic" className="form-label">Image URL</label>
-                        <input type="file" onChange={(e) => selectedAFile(e.target.files)} className="form-control" name="pic" id="inputPic" multiple />
+                        <input type="file" accept=".jpg" onChange={(e) => selectedAFile(e.target.files)} className="form-control" name="pic" id="inputPic" multiple />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="inputImage" className="form-label">Rental rate (per day)</label>

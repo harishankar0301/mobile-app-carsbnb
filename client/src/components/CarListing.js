@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function CarListing() {
+export default function CarListing({ imgBasePath }) {
 
+    const [loadCount, setLoadCount] = useState(12);
     const [carList, setCarList] = useState([]);
 
     const navigate = useNavigate()
     useEffect(() => {
         fecthCarList();
-    }, [])
+    }, [loadCount])
 
-    const imgBasePath = 'https://carsbnbiblob.blob.core.windows.net/cars-cont/';  
     async function fecthCarList() {
-        const res = await fetch('/api/list');
+        const res = await fetch(`/api/list/${loadCount}`);
         const data = await res.json();
         setCarList(data.resp);
     }
@@ -48,10 +48,47 @@ export default function CarListing() {
         <div>
 
             <div className="container mt-3">
+
                 <h1 className="text-center">
                     Car Listings
+
+                    <div className="dropdown d-inline-block" style={{ marginLeft: '10px' }}>
+
+                        <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {loadCount} Cars
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" onClick={() => setLoadCount(50)}>50 Cars</a>
+                            <a className="dropdown-item" onClick={() => setLoadCount(100)}>100 Cars</a>
+                            <a className="dropdown-item" onClick={() => setLoadCount(2000)}>All Cars</a>
+                        </div>
+                    </div>
                 </h1>
+
                 <h3 className="text-center">View and choose which car to hire</h3>
+
+                {/* <div className="row">
+                    <div className="listing-header col-11" >
+                        <h1 className="text-center">
+                            Car Listings
+                        </h1>
+                        <h3 className="text-center">View and choose which car to hire</h3>
+                    </div>
+
+                    <div className="dropdown col-1">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" href="#">Action</a>
+                            <a className="dropdown-item" href="#">Another action</a>
+                            <a className="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div> */}
+
+
+
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
 
                     {carList.map((car) => (
@@ -59,13 +96,13 @@ export default function CarListing() {
 
                             <div className="card h-100 car-card shadow">
                                 <img width={400} height={250} src={imgBasePath + car.imageUri} alt="car" className="card-img-top" onClick={() => carDetails(car.uid)} />
-                            <div className="card-body d-flex flex-column justify-content-end p-2">
-                                <h5 className="card-title text-center text-uppercase">{car.model}</h5>
+                                <div className="card-body d-flex flex-column justify-content-end p-2">
+                                    <h5 className="card-title text-center text-uppercase">{car.model}</h5>
                                     <p className="card-text listPricing">Price: ₹{car.price}/day</p>
-                                {car.isrented == '0' ? <button className="btn btn-primary" onClick={() => bookingFn(car.uid)} >Book Now</button> : ''}
-                                {car.isrented == '1' ? <button className="btn btn-secondary">Booked</button> : ''}
+                                    {car.isrented == '0' ? <button className="btn btn-primary" onClick={() => bookingFn(car.uid)} >Book Now</button> : ''}
+                                    {car.isrented == '1' ? <button className="btn btn-secondary">Booked</button> : ''}
+                                </div>
                             </div>
-                        </div>
                         </div>
 
 

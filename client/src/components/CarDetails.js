@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './carDetails.css'
-export default function CarDetails() {
+export default function CarDetails({ imgBasePath }) {
 
     const [selectedCar, setSelectedCar] = useState(
         {
@@ -17,7 +17,7 @@ export default function CarDetails() {
 
     useEffect(() => {
         fecthCarDetail();
-    }, [])
+    },[])
 
     const navigate = useNavigate()
 
@@ -52,7 +52,7 @@ export default function CarDetails() {
     return <div>
         <div className="row">
             <div className="col-6 carImg">
-                <img src={selectedCar.pic} alt="car" className="card-img-top" />
+                {selectedCar.imageUri ? <img src={imgBasePath + selectedCar.imageUri} alt="car" className="card-img-top" /> : null}
 
 
                 <div className="bookButton">
@@ -64,7 +64,7 @@ export default function CarDetails() {
 
             <div className="col-6 car-details">
                 <h1>{selectedCar.model}</h1>
-                <h3>Price: ₹{selectedCar.price}/day</h3>
+                <h3 className='carDetailsListPricing'>Price: ₹{selectedCar.price}/day</h3>
                 <h4>Contact: {selectedCar.owner}</h4>
                 <div className="description">
                     <h4>Description</h4>

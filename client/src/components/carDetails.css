@@ -30,3 +30,10 @@ li{
 .feature{
     padding-right: 2rem;
 }
+
+.carDetailsListPricing{
+    font-size: 22px;
+    line-height: 22px;
+    color: #ef7e2b;
+    font-weight: 700;
+}
