@@ -32,11 +32,17 @@ module.exports = function (app) {
     });
 
     app.get("/api/list", function (req, res) {
-        orm.query(`select * from cars `, { type: QueryTypes.SELECT }).then(
+        orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid `, { type: QueryTypes.SELECT }).then(
             function (op) {
                 res.send({ resp: op });
             }
         )
+
+
+        //TRY>>>>>>
+        // select c.*,CONCAT('[',GROUP_CONCAT(f.feature),']') as features from cars c left join features f
+        // on c.uid=f.uid where c.uid='46b778f6-08cf-4283-925c-016bd65c08a3'
+        // GROUP by c.uid;
     })
 
     app.get("/api/specificCar/:id", function (req, res) {
@@ -45,14 +51,15 @@ module.exports = function (app) {
             replacements: [req.params.id]
         }).then(
             function (features) {
+                console.log(features);
                 let cardetails = features[0];
                 cardetails["features"] = [];
                 //Converting sql join ofoutput to array JSON of features of car
-                for (let i = 0; i < features.length; i++){
+                for (let i = 0; i < features.length; i++) {
                     cardetails.features.push(features[i].feature);
-                    
+
                 }
-                console.log(cardetails);
+                //console.log(cardetails);
                 res.send({ resp: cardetails });
             }
         )
@@ -65,7 +72,7 @@ module.exports = function (app) {
         //         res.send({ resp: op[0] });
         //     }
         // )
-        
+
     })
 
     app.post("/api/book", function (req, res) {

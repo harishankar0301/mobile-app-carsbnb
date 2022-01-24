@@ -1,7 +1,5 @@
 module.exports = function (app) { 
-
-
-
+  
   var { QueryTypes } = require("sequelize");
   var Buffer = require('safe-buffer').Buffer
   var multer = require("multer");

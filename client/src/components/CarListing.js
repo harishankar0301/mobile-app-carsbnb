@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function CarListing({ bookingFn }) {
+export default function CarListing() {
 
     const [carList, setCarList] = useState([]);
 
@@ -10,6 +10,7 @@ export default function CarListing({ bookingFn }) {
         fecthCarList();
     }, [])
 
+    const imgBasePath = 'https://carsbnbiblob.blob.core.windows.net/cars-cont/';
     async function fecthCarList() {
         const res = await fetch('/api/list');
         const data = await res.json();
@@ -54,15 +55,19 @@ export default function CarListing({ bookingFn }) {
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
 
                     {carList.map((car) => (
-                        <div key={car.uid} className="card h-100 car-card">
-                            <img width={400} height={250} src={car.pic} alt="car" className="card-img-top" onClick={() => carDetails(car.uid)} />
+                        <div key={car.uid} className="col">
+
+                            <div className="card h-100 car-card shadow">
+                                <img width={400} height={250} src={imgBasePath + car.imageUri} alt="car" className="card-img-top" onClick={() => carDetails(car.uid)} />
                             <div className="card-body d-flex flex-column justify-content-end p-2">
                                 <h5 className="card-title text-center text-uppercase">{car.model}</h5>
-                                <p className="card-text">Price: ₹{car.price}/day</p>
+                                    <p className="card-text listPricing">Price: ₹{car.price}/day</p>
                                 {car.isrented == '0' ? <button className="btn btn-primary" onClick={() => bookingFn(car.uid)} >Book Now</button> : ''}
                                 {car.isrented == '1' ? <button className="btn btn-secondary">Booked</button> : ''}
                             </div>
                         </div>
+                        </div>
+
 
                     ))}
                 </div>

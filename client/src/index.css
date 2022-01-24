@@ -10,3 +10,10 @@
     justify-content: center;
     align-items: center;
   }
+
+  .listPricing{
+    font-size: 17px;
+    line-height: 22px;
+    color: #ef7e2b;
+    font-weight: 700;
+}
