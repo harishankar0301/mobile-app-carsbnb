@@ -94,9 +94,9 @@ module.exports = function (app) {
     })
 
 
-    app.get("/api/owned", function (req, res) {
+    app.post("/api/owned", function (req, res) {
         let email = req.body.email;
-        orm.query(`select * from cars where email='${email}'`).then(
+        orm.query(`select * from cars left join car_images on cars.uid=car_images.car_uid where owner='${email}'`,{ type: QueryTypes.SELECT }).then(
             function (op) {
                 console.log(op);
                 res.send({ resp: op });
@@ -104,9 +104,19 @@ module.exports = function (app) {
         )
     })
 
-    app.get("/api/rented/:email", function (req, res) {
-        let email = req.params.email;
-        orm.query(`select * from cars left join rented on cars.uid=rented.uid where rented.email='${email}'`, { type: QueryTypes.SELECT }).then(
+    app.post("/api/delist", function (req, res) {
+        let email = req.body.email;
+        let uid = req.body.uid;
+        orm.query(`delete from features where uid='${uid}'`);
+        orm.query(`delete from car_images where car_uid='${uid}'`);
+        orm.query(`delete from cars where uid='${uid}'`);
+        res.send({ resp: "SUCCESS" });
+    })
+
+    app.post("/api/rented/:email", function (req, res) {
+        let email = req.body.email;
+        console.log(email)
+        orm.query(`select * from cars,rented,car_images where cars.uid=rented.uid and rented.email='${email}' and car_images.car_uid=cars.uid`, { type: QueryTypes.SELECT }).then(
             function (op) {
                 console.log(op);
                 res.send({ resp: op });

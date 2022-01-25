@@ -6,6 +6,7 @@ import Login from "./components/Login"
 import CarDetails from "./components/CarDetails"
 import Signup from "./components/Signup"
 import NewCar from "./components/NewCar"
+import Profile from "./components/Profile"
 
 import { useState, useEffect } from 'react';
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/car-details" element={<CarDetails imgBasePath={imgBasePath} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/newcar" element={<NewCar/>}/>
+        <Route path="/profile" element={<Profile imgBasePath={imgBasePath}/>}/>
       </Routes>
     </div>
   )

@@ -31,6 +31,9 @@ export default function Navbar({isLoggedIn,logOut}) {
                                     <NavLink activeClassName="active" to="/newCar" className="nav-link">Add Car</NavLink >
                                 </li>
                                 <li className="nav-item">
+                                    <NavLink activeClassName="active" to="/profile" className="nav-link">Profile</NavLink >
+                                </li>
+                                <li className="nav-item">
                                     <Link to="/signup" className="nav-link" onClick={logOut}>Logout</Link>
                                 </li>
                             </>
@@ -44,6 +47,7 @@ export default function Navbar({isLoggedIn,logOut}) {
                                 <li className="nav-item">
                                     <NavLink activeClassName="active" to="/signup" className="nav-link">Sign Up</NavLink >
                                 </li>
+                                
 
                             </>}
 
