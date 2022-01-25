@@ -76,23 +76,33 @@ const { v4: uuidv4 } = require('uuid');
     const rate = req.body.rate;
     const description = req.body.description;
     const email = req.body.email;
+    let today = new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date+' '+time;
     let uid = uuidv4();
-  
-    // orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description) values('${brand}','${uid}',0,'${email}','${rate}','${description}')`,).catch((err) => {
-    //   console.log(err);
-    //   res.send({ resp: "ERROR" });
-    // });
-    // const featureList = req.body.features.split(",")
-    // console.log(featureList)
-    // featureList.map((feature) => {
-    //   orm.query(`INSERT INTO features (uid,feature) values('${uid}','${feature}')`).catch((err) => {
-    //     console.log(err);
-    //     res.send({ resp: "ERROR" });
-    //   });
-    // })
-    console.log(brand);
+    orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description) values('${brand}','${uid}',0,'${email}','${rate}','${description}')`,).catch((err) => {
+       console.log(err);
+       res.send({ resp: "ERROR" });
+    });
+    const featureList = JSON.parse(req.body.features)
+    console.log(typeof(featureList))
+    featureList.map((feature) => {
+      orm.query(`INSERT INTO features (uid,feature) values('${uid}','${feature}')`).catch((err) => {
+          console.log(err);
+          res.send({ resp: "ERROR" });
+      });
+    })
     files.forEach(async (file) => {
-      uploadtoAzure('cars-cont', file, file.originalname);
+      let fileuid=uuidv4();
+      let type=file.originalname.split('.').pop();
+      let newfilename=fileuid+'.'+type;
+      console.log(newfilename)
+      orm.query(`INSERT INTO car_images (car_uid,imageUri) values('${uid}','${newfilename}')`).catch((err) => {
+          console.log(err);
+          res.send({ resp: "ERROR" });
+      });
+      uploadtoAzure('cars-cont', file, newfilename);
       
     })
 

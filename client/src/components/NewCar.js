@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 
 export default function NewCar() {
-    console.log("first");
+    //console.log("first");
     const [brand, setBrand] = useState('')
     const [rate, setRate] = useState(0);
     const [imagesList, setImagesList] = useState({})
@@ -27,23 +27,23 @@ export default function NewCar() {
     function submitHandler(e) {
         e.preventDefault();
 
-        console.log(imagesList);
+        //console.log(imagesList);
         let sessionstorage = JSON.parse(sessionStorage.getItem('info'));
         let email=sessionstorage.email
-        console.log(email);
+        //console.log(email);
         const formData = new FormData()
         for (let key in imagesList) {
-            console.log(key);
-            console.log(imagesList[key]);
+            //console.log(key);
+            //console.log(imagesList[key]);
             formData.append('files', imagesList[key]);
         }
         formData.append('carBrand',brand);
         formData.append('rate',rate)
-        formData.append('features',featureList)
+        formData.append('features',JSON.stringify(featureList))
         formData.append('description',description)
         formData.append('email',email)
         for (var key of formData.entries()) {
-            console.log(key[0] + ', ' + key[1]);
+            //console.log(key[0] + ', ' + key[1]);
         }
 
         fetch('/api/newCar', {
@@ -65,8 +65,8 @@ export default function NewCar() {
                         <input type="text" className="form-control" value={brand} onChange={(e) => setBrand(e.target.value)} name="model" id="inputModel" />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="inputPic" className="form-label">Image URL</label>
-                        <input type="file" accept=".jpg" onChange={(e) => selectedAFile(e.target.files)} className="form-control" name="pic" id="inputPic" multiple />
+                        <label htmlFor="inputPic" className="form-label">Image</label>
+                        <input type="file" accept=".jpg" onChange={(e) => selectedAFile(e.target.files)} className="form-control" name="pic" id="inputPic" />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="inputImage" className="form-label">Rental rate (per day)</label>
