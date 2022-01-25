@@ -112,15 +112,18 @@ export default function Profile({ imgBasePath }) {
             <div>
                 <ul className="nav nav-tabs nav-fill">
                     <li className="nav-item">
-                        <a className="nav-link active" data-toggle="tab" onClick={()=>setShowCarList(true)}>Rented Cars</a>
+                        <a className="nav-link active" data-toggle="tab" onClick={()=>setShowCarList(true)}><b>Rented Cars</b></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" data-toggle="tab" onClick={()=>setShowCarList(false)}>Your Cars</a>
+                        <a className="nav-link" data-toggle="tab" onClick={()=>setShowCarList(false)}><b>Your Cars</b></a>
                     </li>
                 </ul>
                 <div className="tab-content">
                     {showCarList===true?(
                         <div className="container mt-3">
+                             <br/>
+                            <i>Your Rented Cars. Choose the ones you want to return</i>
+                            <br/><br/>
                             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
 
                                 {carList.map((car) => (
@@ -138,6 +141,9 @@ export default function Profile({ imgBasePath }) {
                         </div>
                         ):(
                         <div className="container mt-3">
+                            <br/>
+                            <i>Your Cars. Choose the ones you want to delist</i>
+                            <br/><br/>
                             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                                 {ownCarList.map((car) => (
                                     <div key={car.uid} className="card h-100 car-card">
