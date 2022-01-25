@@ -18,7 +18,7 @@ export default function NewCar() {
 
     function featureHandler(e){
         e.preventDefault();
-        if(newFeature!=null){
+        if(newFeature!=''){
             setFeatureList([...featureList,newFeature])
             setNewFeature('')
         }
@@ -80,13 +80,15 @@ export default function NewCar() {
                         <label htmlFor="inputFeature" className="form-label">Features</label>
                         <input type="text" className="form-control" name="features" id="inputFeature" value={newFeature} onChange={(e)=>setNewFeature(e.target.value)} />
                     </div>
-                    <ul>
+                    <div>
+                    
                         {
                         featureList.map((feature) => (
-                            <li key={feature} className="feature">{feature}</li>
+                            <label key={feature} style={{fontSize:'13px',backgroundColor:'#2ECC71 ',color:'white',padding:'3px',borderRadius:'4px',margin:'3px'}}>{feature}</label>
                         ))
                         }
-                    </ul>
+                    
+                    </div>
                     <br/>
                     <button onClick={featureHandler} className="btn btn-primary">Add Feature</button><br/><br/>
                     <button type="submit" onClick={submitHandler} className="btn btn-primary">Submit</button>
