@@ -54,9 +54,11 @@ export default function NewCar() {
     }
     return (
         <div className="container mb-3">
+            <br/>
             <span className="text-center">
                 <h1>Add a new car</h1>
-                <h3>Earn extra income by renting your car!</h3>
+                <h4>Earn extra income by renting your car!</h4>
+                <br/>
             </span>
             <div className="card p-4 w-md-50">
                 <form >

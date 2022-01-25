@@ -48,7 +48,7 @@ export default function CarListing({ imgBasePath }) {
         <div>
 
             <div className="container mt-3">
-
+                <br/>
                 <h1 className="text-center">
                     Car Listings
 
@@ -65,8 +65,8 @@ export default function CarListing({ imgBasePath }) {
                     </div>
                 </h1>
 
-                <h3 className="text-center">View and choose which car to hire</h3>
-
+                <h4 className="text-center">View and choose which car to hire</h4>
+                <br/>
                 {/* <div className="row">
                     <div className="listing-header col-11" >
                         <h1 className="text-center">

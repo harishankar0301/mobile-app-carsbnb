@@ -104,7 +104,7 @@ export default function Profile({ imgBasePath }) {
             <br />
             <div className="container flex-container">
                 <div className="text-center" styles="margin-top: 3%">
-                    <h1 className="mb-3 text-center">Greetings, {email}</h1>
+                    <h1 className="mb-3 text-center" style={{fontFamily: 'Trebucht MS'}}><i>Greetings, {email}!!</i></h1>
                 </div>
             </div>
            
@@ -112,10 +112,10 @@ export default function Profile({ imgBasePath }) {
             <div>
                 <ul className="nav nav-tabs nav-fill">
                     <li className="nav-item">
-                        <a className="nav-link active" data-toggle="tab" onClick={()=>setShowCarList(true)}><b>Rented Cars</b></a>
+                        <a className="nav-link active" data-toggle="tab" onClick={()=>setShowCarList(true)}><b><i>Rented Cars</i></b></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" data-toggle="tab" onClick={()=>setShowCarList(false)}><b>Your Cars</b></a>
+                        <a className="nav-link" data-toggle="tab" onClick={()=>setShowCarList(false)}><b><i>Your Cars</i></b></a>
                     </li>
                 </ul>
                 <div className="tab-content">
