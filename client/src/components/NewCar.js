@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function NewCar() {
+    const navigate = useNavigate()
     //console.log("first");
     const [brand, setBrand] = useState('')
     const [rate, setRate] = useState(0);
@@ -50,6 +51,8 @@ export default function NewCar() {
             method: 'post',
             body: formData
         })
+        alert("Car Added!");
+        navigate('/listing');
 
     }
     return (

@@ -59,6 +59,12 @@ const users = orm.define("users", userModel, {
 
 global.orm = orm;
 
+app.use("/", express.static(path.join(__dirname, "build")));
+app.use((req, res, next) => {
+
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 
 
 

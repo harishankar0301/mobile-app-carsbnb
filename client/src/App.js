@@ -38,7 +38,7 @@ function App() {
         <Route path="/listing" element={<CarListing imgBasePath={imgBasePath} />} />
         <Route path="/login" element={<Login logIn={login} />} />
         <Route path="/car-details" element={<CarDetails imgBasePath={imgBasePath} />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup logIn={login}/>} />
         <Route path="/newcar" element={<NewCar/>}/>
         <Route path="/profile" element={<Profile imgBasePath={imgBasePath}/>}/>
       </Routes>

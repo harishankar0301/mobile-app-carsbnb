@@ -17,7 +17,7 @@ export default function CarDetails({ imgBasePath }) {
 
     useEffect(() => {
         fecthCarDetail();
-    },[])
+    }, [])
 
     const navigate = useNavigate()
 
@@ -37,8 +37,12 @@ export default function CarDetails({ imgBasePath }) {
             body: JSON.stringify({ email: sessioninfo.email, uid: uid })
         });
 
+        //alert("Car Booked!")
         modal.click();
 
+    }
+    function okay_click() {
+        window.location.reload();
     }
 
     async function fecthCarDetail() {
@@ -82,6 +86,28 @@ export default function CarDetails({ imgBasePath }) {
                 </ul>
             </div >
         </div >
+
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-backdrop="static" style={{ display: 'none' }} id="bookingButton" data-bs-target="#bookingConfirm">
+            Launch demo modal
+        </button>
+
+
+        <div className="modal fade" id="bookingConfirm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Booking Success!</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={window.location.reload}></button>
+                    </div>
+                    <div className="modal-body">
+                        The car has been reserved for you. You can pay and rent the car by visiting the store.
+                    </div>
+                    <div className="modal-footer">
+                        <Link to="/listing" type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={okay_click}>Ok</Link>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div >;

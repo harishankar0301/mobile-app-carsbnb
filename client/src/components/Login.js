@@ -57,9 +57,9 @@ export default function Login({logIn}) {
                     <Link to="/changepassword" className="btn btn-secondary ms-3">Forgot Password</Link>
                 </form>
                 <br />
-                <p>If you dont have an account and want to try the app<br />
+                {/* <p>If you dont have an account and want to try the app<br />
                     <b>without creating an account</b>
-                    <br />Email: h@abc.com <br />Password: 1234567</p>
+                    <br />Email: h@abc.com <br />Password: 1234567</p> */}
             </div>
         </div>
     );

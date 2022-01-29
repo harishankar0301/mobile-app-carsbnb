@@ -48,3 +48,14 @@ Thumbs.db
 /node_modules
 /.vscode
 .env
+build/asset-manifest.json
+build/carsbnb.png
+build/index.html
+build/manifest.json
+build/robots.txt
+build/static/css/main.6b4cc2c3.css
+build/static/css/main.6b4cc2c3.css.map
+build/static/js/main.182e0864.js
+build/static/js/main.182e0864.js.LICENSE.txt
+build/static/js/main.182e0864.js.map
+build/static/media/bg3.2cd13449eb8e7e2539a5.jpg

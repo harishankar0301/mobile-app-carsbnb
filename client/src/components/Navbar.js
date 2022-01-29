@@ -34,7 +34,7 @@ export default function Navbar({isLoggedIn,logOut}) {
                                     <NavLink activeClassName="active" to="/profile" className="nav-link">Profile</NavLink >
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/signup" className="nav-link" onClick={logOut}>Logout</Link>
+                                    <Link to="/" className="nav-link" onClick={logOut}>Logout</Link>
                                 </li>
                             </>
 

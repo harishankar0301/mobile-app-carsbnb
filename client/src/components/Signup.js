@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function Signup() {
+export default function Signup({logIn}) {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -25,7 +25,8 @@ export default function Signup() {
         }).then(res=>res.json())
         .then(data=>{
             if (data['resp'] == "SUCCESS") {
-                sessionStorage.setItem('info', JSON.stringify({ email: email }))
+                sessionStorage.setItem('info', JSON.stringify({ email: email }));
+                logIn();
                 navigate('/listing')
             }
             else {

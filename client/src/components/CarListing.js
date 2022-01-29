@@ -17,14 +17,23 @@ export default function CarListing({ imgBasePath }) {
         setCarList(data.resp);
     }
 
-
-    function bookingFn(uid) {
+    function okay_click() {
+        window.location.reload();
+    }
+    function bookingFn(uid, owner) {
         let sessioninfo = JSON.parse(sessionStorage.getItem('info'));
         if (!sessioninfo) {
             alert("Please login")
             navigate('/login');
+            return;
+        }
+        if (sessioninfo.email == owner) {
+            alert("This is your Car!! You can't rent your Own Car!!");
+            return;
         }
         let modal = document.getElementById('bookingButton');
+        modal.click();
+        //alert("Car Booked!")
         fetch('/api/book', {
             method: 'post',
             headers: {
@@ -34,7 +43,7 @@ export default function CarListing({ imgBasePath }) {
             body: JSON.stringify({ email: sessioninfo.email, uid: uid })
         });
 
-        modal.click();
+        
 
     }
 
@@ -67,25 +76,7 @@ export default function CarListing({ imgBasePath }) {
 
                 <h4 className="text-center">View and choose which car to hire</h4>
                 <br/>
-                {/* <div className="row">
-                    <div className="listing-header col-11" >
-                        <h1 className="text-center">
-                            Car Listings
-                        </h1>
-                        <h3 className="text-center">View and choose which car to hire</h3>
-                    </div>
-
-                    <div className="dropdown col-1">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown button
-                        </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
-                </div> */}
+               
 
 
 
@@ -99,7 +90,7 @@ export default function CarListing({ imgBasePath }) {
                                 <div className="card-body d-flex flex-column justify-content-end p-2">
                                     <h5 className="card-title text-center text-uppercase">{car.model}</h5>
                                     <p className="card-text listPricing">Price: ₹{car.price}/day</p>
-                                    {car.isrented == '0' ? <button className="btn btn-primary" onClick={() => bookingFn(car.uid)} >Book Now</button> : ''}
+                                    {car.isrented == '0' ? <button className="btn btn-primary" onClick={() => bookingFn(car.uid, car.owner)} >Book Now</button> : ''}
                                     {car.isrented == '1' ? <button className="btn btn-secondary">Booked</button> : ''}
                                 </div>
                             </div>
@@ -127,7 +118,7 @@ export default function CarListing({ imgBasePath }) {
                             The car has been reserved for you. You can pay and rent the car by visiting the store.
                         </div>
                         <div className="modal-footer">
-                            <Link to="/listing" type="button" className="btn btn-success" data-bs-dismiss="modal">Ok</Link>
+                            <Link to="/listing" type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={okay_click}>Ok</Link>
                         </div>
                     </div>
                 </div>

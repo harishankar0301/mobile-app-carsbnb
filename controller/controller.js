@@ -81,7 +81,7 @@ const { v4: uuidv4 } = require('uuid');
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     let dateTime = date+' '+time;
     let uid = uuidv4();
-    orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description) values('${brand}','${uid}',0,'${email}','${rate}','${description}')`,).catch((err) => {
+    orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description,dateAdded) values('${brand}','${uid}',0,'${email}','${rate}','${description}',now())`,).catch((err) => {
        console.log(err);
        res.send({ resp: "ERROR" });
     });
