@@ -14,9 +14,24 @@ const uploadtoAzure = async (containerName, file, fileName) => {
         await blockBlobClient.uploadStream(stream);
         return { stats: 200, message: "Uploaded" }
     } catch (err) {
-        return { stats: 500, message: err }
         console.log(err);
+        return { stats: 500, message: err }
+
     }
 }
 
-module.exports = uploadtoAzure;
+const deleteBlob = async (containerName, fileName) => {
+
+    var containerClient = blobServiceClient.getContainerClient(containerName);;
+    var blockBlobClient = containerClient.getBlockBlobClient(fileName);
+    try {
+        await blockBlobClient.deleteIfExists(fileName);
+        return { stats: 200, message: "Uploaded" }
+    } catch (err) {
+        console.log(err);
+        return { stats: 500, message: err }
+
+    }
+}
+
+module.exports = uploadtoAzure, deleteBlob;

@@ -1,17 +1,19 @@
 var express = require("express");
 var app = express();
+const bodyParser = require("body-parser");
 const path = require("path");
 var fs = require("fs");
 var controller = require("./controller/controller");
 var cars_controller = require("./controller/cars_controller");
 var cars2 = require("./controller/cars2controller");
 var userModel = require('./models/users');
-var current_user = '';
-global.current_user = current_user;
+
 
 //Environments for local development
 require('dotenv').config()
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 //firing controllers
 controller(app);
 cars2(app);

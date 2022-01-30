@@ -8,28 +8,6 @@ module.exports = function (app) {
     var path = require("path");
     var fs = require("fs");
 
-    var bodyParser = require("body-parser");
-    app.use(bodyParser.json()); // to support JSON-encoded bodies
-    app.use(
-        bodyParser.urlencoded({
-            // to support URL-encoded bodies
-            extended: true,
-        })
-    );
-
-    //CORS setttings
-    app.use((req, res, next) => {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader(
-            "Access-Control-Allow-Headers",
-            "Origin, X-Requested-With, Content-Type, Accept"
-        );
-        res.setHeader(
-            "Access-Control-Allow-Methods",
-            "GET, POST, PATCH, DELETE, OPTIONS"
-        );
-        next();
-    });
 
     app.get("/api/list/:loadCount", function (req, res) {
         orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid order by dateAdded DESC limit ${req.params.loadCount}`, { type: QueryTypes.SELECT }).then(
