@@ -54,7 +54,7 @@ export default function Login({logIn}) {
                         <input type="password" className="form-control" name="password" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <button type="submit" className="btn btn-primary" onClick={loginData}>Submit</button>
-                    <Link to="/changepassword" className="btn btn-secondary ms-3">Forgot Password</Link>
+                    {/* <Link to="/changepassword" className="btn btn-secondary ms-3">Forgot Password</Link> */}
                 </form>
                 <br />
                 {/* <p>If you dont have an account and want to try the app<br />

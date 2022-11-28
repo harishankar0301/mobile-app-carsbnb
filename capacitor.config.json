@@ -1,0 +1,8 @@
+{
+    "appId": "io.ionic.Carsbnb",
+    "appName": "carsbnb",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "cordova": {}
+  }
