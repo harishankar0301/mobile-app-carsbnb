@@ -8,7 +8,7 @@ export default function Login({logIn}) {
     const navigate = useNavigate()
     const loginData = (e) => {
         e.preventDefault()
-        fetch("/api/loginv", {
+        fetch("https://carsbnb.azurewebsites.net/api/loginv", {
           method:"post",
           headers:{
               "Content-Type": "application/json",

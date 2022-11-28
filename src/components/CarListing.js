@@ -12,7 +12,7 @@ export default function CarListing({ imgBasePath }) {
     }, [loadCount])
 
     async function fecthCarList() {
-        const res = await fetch(`/api/list/${loadCount}`);
+        const res = await fetch(`https://carsbnb.azurewebsites.net/api/list/${loadCount}`);
         const data = await res.json();
         setCarList(data.resp);
     }
@@ -34,7 +34,7 @@ export default function CarListing({ imgBasePath }) {
         let modal = document.getElementById('bookingButton');
         modal.click();
         //alert("Car Booked!")
-        fetch('/api/book', {
+        fetch('https://carsbnb.azurewebsites.net/api/book', {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",

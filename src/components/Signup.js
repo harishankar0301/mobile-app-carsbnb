@@ -10,7 +10,7 @@ export default function Signup({logIn}) {
 
     const signupData = (e) => {
         e.preventDefault()
-        fetch("/api/signup", {
+        fetch("https://carsbnb.azurewebsites.net/api/signup", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",

@@ -1,5 +1,6 @@
 .head-div{
-    min-height: calc(100vh - 26px);
+    position: relative;
+    min-height: calc(100vh - 0px);
     background-image: url('../assets/bg3.jpg');
     background-position: center center;
     background-repeat: no-repeat;

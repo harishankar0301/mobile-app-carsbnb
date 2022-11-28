@@ -28,7 +28,7 @@ export default function CarDetails({ imgBasePath }) {
             navigate('/login');
         }
         let modal = document.getElementById('bookingButton');
-        fetch('/api/book', {
+        fetch('https://carsbnb.azurewebsites.net/api/book', {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export default function CarDetails({ imgBasePath }) {
     async function fecthCarDetail() {
         let car_id = JSON.parse(sessionStorage.getItem('selectedCar'));
         console.log(car_id);
-        const res = await fetch(`api/specificCar/${car_id}`);
+        const res = await fetch(`https://carsbnb.azurewebsites.net/api/specificCar/${car_id}`);
         const data = await res.json();
         setSelectedCar(data.resp);
     }

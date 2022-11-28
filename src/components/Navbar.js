@@ -69,7 +69,7 @@ export default function Navbar({isLoggedIn,logOut}) {
         // </nav >
 
         <>
-            <button className="openbtn" onClick={openNav}>&#9776;</button>
+            <div className="openbtn" onClick={openNav}>&#9776;</div>
         <div id="mySidebar" className="sidebar">
   <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
   <a onClick={closeNav}> <NavLink activeClassName="active" to="/" className="nav-link">Home</NavLink ></a>

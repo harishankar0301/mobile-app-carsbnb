@@ -1,7 +1,6 @@
 {
   "name": "cars-react",
   "version": "0.1.0",
-  "proxy": "https://carsbnb.azurewebsites.net/",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^4.5.0",

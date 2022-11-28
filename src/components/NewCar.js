@@ -47,7 +47,7 @@ export default function NewCar() {
             //console.log(key[0] + ', ' + key[1]);
         }
 
-        fetch('/api/newCar', {
+        fetch('https://carsbnb.azurewebsites.net/api/newCar', {
             method: 'post',
             body: formData
         })

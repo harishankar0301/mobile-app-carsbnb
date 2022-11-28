@@ -63,12 +63,16 @@
 /* The button used to open the sidebar */
 .openbtn {
   /* display: inline-flex; */
+  position: absolute;
+  width: 12%;
   font-size: 20px;
   cursor: pointer;
   background-color: #111;
   color: white;
   padding: 2px 15px;
   border: none;
+  z-index: 10;
+  top: 0;
 }
 
 .openbtn:hover {

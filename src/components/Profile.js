@@ -23,7 +23,7 @@ export default function Profile({ imgBasePath }) {
 
     async function fecthOwnList() {
         let sessionstorage = JSON.parse(sessionStorage.getItem('info'));
-        const res = await fetch('/api/owned', {
+        const res = await fetch('https://carsbnb.azurewebsites.net/api/owned', {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export default function Profile({ imgBasePath }) {
     }
     async function fecthCarList() {
         let sessionstorage = JSON.parse(sessionStorage.getItem('info'));
-        const res = await fetch('/api/rented/email', {
+        const res = await fetch('https://carsbnb.azurewebsites.net/api/rented/email', {
             method: 'post',
             headers: {
                 "Content-Type": "application/json",
@@ -63,7 +63,7 @@ export default function Profile({ imgBasePath }) {
         }
         //let modal = document.getElementById('bookingButton');
         if (window.confirm("Are you sure you want to return")) {
-            const reponse = await fetch('/api/return', {
+            const reponse = await fetch('https://carsbnb.azurewebsites.net/api/return', {
                 method: 'post',
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function Profile({ imgBasePath }) {
             navigate('/login');
         }
         if (window.confirm("Are you sure you want to delist this car")) {
-            const reponse = await fetch('/api/delist', {
+            const reponse = await fetch('https://carsbnb.azurewebsites.net/api/delist', {
                 method: 'post',
                 headers: {
                     "Content-Type": "application/json",
