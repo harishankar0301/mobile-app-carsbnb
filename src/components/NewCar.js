@@ -2,9 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Geolocation } from '@ionic-native/geolocation';
+import { usePhotoGallery } from "../hooks/usePhotoGallery";
 
 export default function NewCar() {
     const navigate = useNavigate()
+    const { takePhoto } = usePhotoGallery();
     //console.log("first");
     const [brand, setBrand] = useState('')
     const [rate, setRate] = useState(0);
@@ -13,6 +15,7 @@ export default function NewCar() {
     const [featureList,setFeatureList]=useState([])
     const [description,setDescription]=useState('')
 
+    var image1;
     function selectedAFile(images) {
 
         setImagesList(images);
@@ -35,6 +38,12 @@ export default function NewCar() {
         console.log(data);
         return data.city;
     }
+    
+    async function camHandler(e) {
+        e.preventDefault();
+        image1 = await takePhoto();
+        selectedAFile({ 0: image1 });
+    }
     async function submitHandler(e) {
         e.preventDefault();
 
@@ -44,8 +53,8 @@ export default function NewCar() {
         //console.log(email);
         const formData = new FormData()
         for (let key in imagesList) {
-            //console.log(key);
-            //console.log(imagesList[key]);
+            // console.log(key);
+            // console.log(imagesList[key]);
             formData.append('files', imagesList[key]);
         }
         formData.append('carBrand',brand);
@@ -68,6 +77,7 @@ export default function NewCar() {
         alert("Car Added!");
         navigate('/listing');
 
+
     }
     return (
         <div className="container mb-3">
@@ -78,6 +88,7 @@ export default function NewCar() {
                 <br/>
             </span>
             <div className="card p-4 w-md-50">
+                <button onClick={camHandler}>Open Camera</button>
                 <form >
                     <div className="mb-3">
                         <label htmlFor="inputModel" className="form-label">Car Brand and Model</label>

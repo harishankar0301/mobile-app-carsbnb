@@ -8,6 +8,7 @@ import Signup from "./components/Signup"
 import NewCar from "./components/NewCar"
 import Profile from "./components/Profile"
 import "./App.css"
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
 
 import { useState, useEffect } from 'react';
 function App() {
@@ -28,6 +29,7 @@ function App() {
   useEffect(() => {
     if (JSON.parse(sessionStorage.getItem('info'))) {
       setIsLoggedIn(true);
+      defineCustomElements(window);
     }
   }, [])
 
