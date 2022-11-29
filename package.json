@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@capacitor/android": "^4.5.0",
+    "@capacitor/camera": "^4.1.4",
     "@capacitor/core": "^4.5.0",
     "@ionic/cli": "^6.20.4",
+    "@ionic/pwa-elements": "^3.1.1",
     "@ionic/react": "^6.3.8",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

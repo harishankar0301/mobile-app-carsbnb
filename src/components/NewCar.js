@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usePhotoGallery } from "../hooks/usePhotoGallery";
 
 export default function NewCar() {
     const navigate = useNavigate()
+    const { takePhoto } = usePhotoGallery();
     //console.log("first");
     const [brand, setBrand] = useState('')
     const [rate, setRate] = useState(0);
@@ -64,6 +66,7 @@ export default function NewCar() {
                 <br/>
             </span>
             <div className="card p-4 w-md-50">
+                <button onClick={takePhoto}>Open Camera</button>
                 <form >
                     <div className="mb-3">
                         <label htmlFor="inputModel" className="form-label">Car Brand and Model</label>
