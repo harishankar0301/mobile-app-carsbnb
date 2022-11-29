@@ -42,7 +42,8 @@ export default function NewCar() {
         formData.append('rate',rate)
         formData.append('features',JSON.stringify(featureList))
         formData.append('description',description)
-        formData.append('email',email)
+        formData.append('email', email)
+        formData.append('city', )
         for (var key of formData.entries()) {
             //console.log(key[0] + ', ' + key[1]);
         }

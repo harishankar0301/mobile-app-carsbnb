@@ -49,12 +49,13 @@ const { v4: uuidv4 } = require('uuid');
     const rate = req.body.rate;
     const description = req.body.description;
     const email = req.body.email;
+    const city = req.body.city;
     let today = new Date();
     let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     let dateTime = date+' '+time;
     let uid = uuidv4();
-    orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description,dateAdded) values('${brand}','${uid}',0,'${email}','${rate}','${description}',now())`,).catch((err) => {
+    orm.query(`INSERT INTO cars (model,uid,isrented,owner,price,description,dateAdded,city) values('${brand}','${uid}',0,'${email}','${rate}','${description}',now()),'${city}'`,).catch((err) => {
        console.log(err);
        res.send({ resp: "ERROR" });
     });
