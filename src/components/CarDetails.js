@@ -23,6 +23,7 @@ export default function CarDetails({ imgBasePath }) {
 
     function bookingFn(uid) {
         let sessioninfo = JSON.parse(sessionStorage.getItem('info'));
+        uid = JSON.parse(sessionStorage.getItem('selectedCar'));
         if (!sessioninfo) {
             alert("Please login")
             navigate('/login');
@@ -54,37 +55,36 @@ export default function CarDetails({ imgBasePath }) {
     }
 
     return <div>
-        <div className="row">
-            <div className="col-6 carImg">
+        <div className="row mx-auto">
+            <div className="mt-5 carImg">
                 {selectedCar.imageUri ? <img src={imgBasePath + selectedCar.imageUri} alt="car" className="card-img-top" /> : null}
+            </div>
 
-
+            <div className="mt-3 d-flex flex-column justify-content-center">
                 <div className="bookButton">
                     {selectedCar.isrented == '0' ? <button className="btn btn-primary btn-lg" onClick={() => bookingFn(selectedCar.uid)}>Book Now</button> : null}
                     {selectedCar.isrented == '1' ? <button className="btn btn-secondary btn-lg" disabled>Booked</button> : null}
                 </div>
 
+                <div className="car-details">
+                    <h1 className='mt-2 text-center'>{selectedCar.model}</h1>
+                    <h3 className='mt-2 text-center carDetailsListPricing'>Price: ₹{selectedCar.price}/day</h3>
+                    <h4 className='mt-2 text-center'>Contact: {selectedCar.owner}</h4>
+                    <div className="mt-2 d-flex flex-column justify-content-center description">
+                        <p className='text-left'>{selectedCar.description}</p>
+                    </div>
+
+                    <ul>
+                        <h3>Features</h3>
+                        {
+                            selectedCar.features.map((feature) => (
+                                
+                                <li key={feature} className="feature">{feature}</li>
+                                ))
+                            }
+                    </ul>
+                </div >
             </div>
-
-            <div className="col-6 car-details">
-                <h1>{selectedCar.model}</h1>
-                <h3 className='carDetailsListPricing'>Price: ₹{selectedCar.price}/day</h3>
-                <h4>Contact: {selectedCar.owner}</h4>
-                <div className="description">
-                    <h4>Description</h4>
-                    <p>{selectedCar.description}</p>
-                </div>
-
-                <ul>
-                    <h3>Features</h3>
-                    {
-                        selectedCar.features.map((feature) => (
-
-                            <li key={feature} className="feature">{feature}</li>
-                        ))
-                    }
-                </ul>
-            </div >
         </div >
 
         <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-backdrop="static" style={{ display: 'none' }} id="bookingButton" data-bs-target="#bookingConfirm">
