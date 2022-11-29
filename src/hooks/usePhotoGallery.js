@@ -9,8 +9,8 @@ export function usePhotoGallery() {
 
     const savePicture = async (photo) => {
         const savedFile = await fetch(photo.webPath);
-        const savedFileBlob = await savedFile.blob();
-        return savedFileBlob;
+        const blob = await savedFile.blob();
+        return new File([blob], "image.jpg", { type: "image/jpeg" });
     };
 
   const takePhoto = async () => {
@@ -22,6 +22,8 @@ export function usePhotoGallery() {
 
     const fileName = new Date().getTime() + ".png";
     const savedFileImage = await savePicture(photo);
+    
+    return savedFileImage;
   };
 
   return {

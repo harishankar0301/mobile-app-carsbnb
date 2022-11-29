@@ -14,6 +14,7 @@ export default function NewCar() {
     const [featureList,setFeatureList]=useState([])
     const [description,setDescription]=useState('')
 
+    var image1;
     function selectedAFile(images) {
 
         setImagesList(images);
@@ -27,6 +28,11 @@ export default function NewCar() {
         }
     }
 
+    async function camHandler(e) {
+        e.preventDefault();
+        image1 = await takePhoto();
+        selectedAFile({ 0: image1 });
+    }
     function submitHandler(e) {
         e.preventDefault();
 
@@ -36,8 +42,8 @@ export default function NewCar() {
         //console.log(email);
         const formData = new FormData()
         for (let key in imagesList) {
-            //console.log(key);
-            //console.log(imagesList[key]);
+            // console.log(key);
+            // console.log(imagesList[key]);
             formData.append('files', imagesList[key]);
         }
         formData.append('carBrand',brand);
@@ -56,6 +62,7 @@ export default function NewCar() {
         alert("Car Added!");
         navigate('/listing');
 
+
     }
     return (
         <div className="container mb-3">
@@ -66,7 +73,7 @@ export default function NewCar() {
                 <br/>
             </span>
             <div className="card p-4 w-md-50">
-                <button onClick={takePhoto}>Open Camera</button>
+                <button onClick={camHandler}>Open Camera</button>
                 <form >
                     <div className="mb-3">
                         <label htmlFor="inputModel" className="form-label">Car Brand and Model</label>
