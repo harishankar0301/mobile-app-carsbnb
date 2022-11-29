@@ -9,6 +9,7 @@ export default function CarListing({ imgBasePath }) {
 
     const [loadCount, setLoadCount] = useState(12);
     const [carList, setCarList] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -19,7 +20,6 @@ export default function CarListing({ imgBasePath }) {
         const res = await fetch(`https://carsbnb.azurewebsites.net/api/list/${loadCount}`);
         const data = await res.json();
         if (loadCount != 12) carOption = loadCount + ' Cars';
-
         setCarList(data.resp);
     }
 
@@ -48,11 +48,7 @@ export default function CarListing({ imgBasePath }) {
             },
             body: JSON.stringify({ email: sessioninfo.email, uid: uid })
         });
-
-        
-
     }
-
 
     async function getCarsByLocation() {
         const position = await Geolocation.getCurrentPosition();
@@ -84,87 +80,180 @@ export default function CarListing({ imgBasePath }) {
         navigate('/car-details')
     }
     return (
-        <div>
+      <div>
+        <div className="container mt-3">
+          <br />
+          <h1 className="text-center">
+            Car Listings
+            <div
+              className="dropdown d-inline-block"
+              style={{ marginLeft: "10px" }}
+            >
+              <button
+                className="btn btn-secondary btn-sm dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {/* {loadCount} Cars */}
+                {carOption}
+              </button>
+              <div
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <a className="dropdown-item" onClick={() => setLoadCount(50)}>
+                  50 Cars
+                </a>
+                <a className="dropdown-item" onClick={() => setLoadCount(100)}>
+                  100 Cars
+                </a>
+                <a className="dropdown-item" onClick={() => setLoadCount(2000)}>
+                  All Cars
+                </a>
+                <a
+                  className="dropdown-item"
+                  onClick={() => getCarsByLocation()}
+                >
+                  Cars by Location
+                </a>
+              </div>
+            </div>
+          </h1>
 
-            <div className="container mt-3">
-                <br/>
-                <h1 className="text-center">
-                    Car Listings
+          {/* <h4 className="text-center">View and choose which car to hire</h4> */}
+          {locationCity != "" ? (
+            <>
+              <span className="loc-icon  text-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-geo-alt-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                </svg>{" "}
+                {locationCity}
+              </span>
+            </>
+          ) : (
+            <></>
+          )}
+          <input
+            type="text"
+            placeholder="Search for cars"
+            className="p-2 w-100 rounded-3"
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+            }}
+          />
 
-                    <div className="dropdown d-inline-block" style={{ marginLeft: '10px' }}>
-
-                        <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {/* {loadCount} Cars */}
-                            {carOption}
-                        </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" onClick={() => setLoadCount(50)}>50 Cars</a>
-                            <a className="dropdown-item" onClick={() => setLoadCount(100)}>100 Cars</a>
-                            <a className="dropdown-item" onClick={() => setLoadCount(2000)}>All Cars</a>
-                            <a className="dropdown-item" onClick={() => getCarsByLocation()}>Cars by Location</a>
-                        </div>
-                    </div>
-                </h1>
-
-                {/* <h4 className="text-center">View and choose which car to hire</h4> */}
-                {locationCity != '' ?
-                    <>
-                        <span className='loc-icon  text-center'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                        </svg>   {locationCity}</span>
-                    </>
-                    :
-                    <></>
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-3">
+            {carList
+              .filter((val) => {
+                if (searchTerm == "") {
+                  return val;
+                } else if (
+                  val.model.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return val;
                 }
-
-
-
-               
-
-
-
-                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-
-                    {carList.map((car) => (
-                        <div key={car.uid} className="col">
-
-                            <div className="card h-100 car-card shadow">
-                                <img width={400} height={250} src={imgBasePath + car.imageUri} alt="car" className="card-img-top" onClick={() => carDetails(car.uid)} />
-                                <div className="card-body d-flex flex-column justify-content-end p-2">
-                                    <h5 className="card-title text-center text-uppercase">{car.model}</h5>
-                                    <p className="card-text listPricing">Price: ₹{car.price}/day</p>
-                                    {car.isrented == '0' ? <button className="btn btn-primary" onClick={() => bookingFn(car.uid, car.owner)} >Book Now</button> : ''}
-                                    {car.isrented == '1' ? <button className="btn btn-secondary">Booked</button> : ''}
-                                </div>
-                            </div>
-                        </div>
-
-
-                    ))}
-                </div>
-            </div>
-
-
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-backdrop="static" style={{ display: 'none' }} id="bookingButton" data-bs-target="#bookingConfirm">
-                Launch demo modal
-            </button>
-
-
-            <div className="modal fade" id="bookingConfirm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Booking Success!</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={window.location.reload}></button>
-                        </div>
-                        <div className="modal-body">
-                            The car has been reserved for you. You can pay and rent the car by visiting the store.
-                        </div>
-                        <div className="modal-footer">
-                            <Link to="/listing" type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={okay_click}>Ok</Link>
-                        </div>
+              })
+              .map((car) => (
+                <div key={car.uid} className="col">
+                  <div className="card h-100 car-card shadow">
+                    <img
+                      width={400}
+                      height={250}
+                      src={imgBasePath + car.imageUri}
+                      alt="car"
+                      className="card-img-top"
+                      onClick={() => carDetails(car.uid)}
+                    />
+                    <div className="card-body d-flex flex-column justify-content-end p-2">
+                      <h5 className="card-title text-center text-uppercase">
+                        {car.model}
+                      </h5>
+                      <p className="card-text listPricing">
+                        Price: ₹{car.price}/day
+                      </p>
+                      {car.isrented == "0" ? (
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => bookingFn(car.uid, car.owner)}
+                        >
+                          Book Now
+                        </button>
+                      ) : (
+                        ""
+                      )}
+                      {car.isrented == "1" ? (
+                        <button className="btn btn-secondary">Booked</button>
+                      ) : (
+                        ""
+                      )}
                     </div>
+                  </div>
                 </div>
+              ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-backdrop="static"
+          style={{ display: "none" }}
+          id="bookingButton"
+          data-bs-target="#bookingConfirm"
+        >
+          Launch demo modal
+        </button>
+
+        <div
+          className="modal fade"
+          id="bookingConfirm"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Booking Success!
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={window.location.reload}
+                ></button>
+              </div>
+              <div className="modal-body">
+                The car has been reserved for you. You can pay and rent the car
+                by visiting the store.
+              </div>
+              <div className="modal-footer">
+                <Link
+                  to="/listing"
+                  type="button"
+                  className="btn btn-success"
+                  data-bs-dismiss="modal"
+                  onClick={okay_click}
+                >
+                  Ok
+                </Link>
+              </div>
             </div>
-        </div>);
+          </div>
+        </div>
+      </div>
+    );
 }
