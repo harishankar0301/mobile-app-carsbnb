@@ -3,6 +3,11 @@ body {
   padding-bottom: 15px;
 }
 
+.loc-icon{
+  display: block;
+  font-size: larger;
+  margin-bottom: 11px;
+}
 @media (min-width: 768px){
     .w-md-50{
       margin: auto 25%;

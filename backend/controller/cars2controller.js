@@ -9,6 +9,16 @@ module.exports = function (app) {
     var fs = require("fs");
 
 
+    app.get("/api/list/location/:city", function (req, res) {
+        let loadCount = 500;
+        let city = req.params.city;
+        orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid where c.city = '${city}' order by dateAdded DESC limit ${loadCount}`, { type: QueryTypes.SELECT }).then(
+            function (op) {
+                res.send({ resp: op });
+            }
+        )
+    })
+
     app.get("/api/list/:loadCount", function (req, res) {
         orm.query(`select * from cars c left join car_images cimg on c.uid=cimg.car_uid order by dateAdded DESC limit ${req.params.loadCount}`, { type: QueryTypes.SELECT }).then(
             function (op) {
