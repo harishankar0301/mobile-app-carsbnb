@@ -7,6 +7,7 @@ import CarDetails from "./components/CarDetails"
 import Signup from "./components/Signup"
 import NewCar from "./components/NewCar"
 import Profile from "./components/Profile"
+import "./App.css"
 
 import { useState, useEffect } from 'react';
 function App() {

@@ -1,3 +1,8 @@
+body {
+  background-color: #f3f3f3;
+  padding-bottom: 15px;
+}
+
 @media (min-width: 768px){
     .w-md-50{
       margin: auto 25%;

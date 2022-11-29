@@ -36,30 +36,28 @@ export default function Login({logIn}) {
       }
 
     return (
-        <div className="container flex-container">
-            <h1 className="mb-3 text-center">Login</h1>
-            <div className="card p-4 w-md-50">
-                <p>
-                    Welcome Back! Enter the details to get going!
+        <div className='pb-3'>
+            <div className="container flex-container vh-100">
+                <div className="h1 mb-3 text-center">Login</div>
+                <div className="card p-4 w-md-50">
+                    <p>
+                        Welcome Back! Enter the details to get going!
+                        <br />
+                        Don't have a account? <Link to="/signup">Sign up</Link>
+                    </p>
+                    <form>
+                        <div className="mb-3">
+                            <label htmlFor="inputEmail" className="form-label">Email address</label>
+                            <input type="email" className="form-control" name="emailId" id="inputEmail" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="inputPassword" className="form-label">Password</label>
+                            <input type="password" className="form-control" name="password" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        </div>
+                        <button type="submit" className="btn btn-primary" onClick={loginData}>Submit</button>
+                    </form>
                     <br />
-                    Don't have a account? <Link to="/signup">Sign up</Link>
-                </p>
-                <form>
-                    <div className="mb-3">
-                        <label htmlFor="inputEmail" className="form-label">Email address</label>
-                        <input type="email" className="form-control" name="emailId" id="inputEmail" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="inputPassword" className="form-label">Password</label>
-                        <input type="password" className="form-control" name="password" id="inputPassword" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={loginData}>Submit</button>
-                    {/* <Link to="/changepassword" className="btn btn-secondary ms-3">Forgot Password</Link> */}
-                </form>
-                <br />
-                {/* <p>If you dont have an account and want to try the app<br />
-                    <b>without creating an account</b>
-                    <br />Email: h@abc.com <br />Password: 1234567</p> */}
+                </div>
             </div>
         </div>
     );
