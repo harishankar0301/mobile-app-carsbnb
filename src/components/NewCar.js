@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Geolocation } from '@ionic-native/geolocation';
 
 export default function NewCar() {
     const navigate = useNavigate()
@@ -25,7 +26,16 @@ export default function NewCar() {
         }
     }
 
-    function submitHandler(e) {
+    async function getCity() {
+        const position = await Geolocation.getCurrentPosition();
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        let res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+        let data = await res.json();
+        console.log(data);
+        return data.city;
+    }
+    async function submitHandler(e) {
         e.preventDefault();
 
         //console.log(imagesList);
@@ -43,7 +53,10 @@ export default function NewCar() {
         formData.append('features',JSON.stringify(featureList))
         formData.append('description',description)
         formData.append('email', email)
-        formData.append('city', )
+
+        //GETTING CITY**********
+        let city = await getCity();
+        formData.append('city', city);
         for (var key of formData.entries()) {
             //console.log(key[0] + ', ' + key[1]);
         }
