@@ -9,7 +9,19 @@ const { v4: uuidv4 } = require('uuid');
   var path = require("path");
   var fs = require("fs");
 
+  const crypto = require("crypto");
 
+  function calcSHA(str) {
+  
+  const secret = "This is a company secret";
+  
+  
+  const sha256Hasher = crypto.createHmac("sha256", secret);
+  
+  return sha256Hasher.update(str).digest("hex");
+  }
+  
+  
   //Using multer for disk Storage
   //{storage:storage}
   // const storage = multer.diskStorage({
@@ -102,7 +114,7 @@ const { v4: uuidv4 } = require('uuid');
   })
   app.post('/api/loginv', function (req, res) {
     let email = req.body.email;
-    let pwd = req.body.password;
+    let pwd = calcSHA(req.body.password);
     console.log(req.body);
     orm.query(`SELECT * FROM users where email='${email}'`, { type: QueryTypes.SELECT }).then(function (op) {
       console.log(op);
@@ -126,7 +138,7 @@ const { v4: uuidv4 } = require('uuid');
   app.post('/api/signup', function (req, res) {
     let email = req.body.email;
     let name = req.body.name;
-    let pwd = req.body.password;
+    let pwd = calcSHA(req.body.password);
 
     orm.query(`INSERT INTO users (email,name,password) values('${email}','${name}','${pwd}')`).catch((err) => {
       console.log(err);
