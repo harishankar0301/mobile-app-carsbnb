@@ -17,11 +17,16 @@ users to rent cars and put up used cars for rent.
 
 # Tech stack
 <ul>
-  <li>Angular</li>
+  <li>Ionic Framework</li>
+  <li>React JS</li>
   <li>Node JS</li>
   <li>Mysql</li>
   <li>Sequelize ORM</li>
+  <li>Android Studio</li>
  </ul>
+
+ # Preview
+<img height="300" src="https://github.com/harishankar0301/mobile-app-carsbnb/images/car-listing.jpg"></img>
  
  # Structure:
 src folder has the frontend React code, backend folder has the node.js code.
