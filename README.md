@@ -26,11 +26,10 @@ users to rent cars and put up used cars for rent.
  </ul>
 
  # Preview
-<img height="400" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/car-listing.jpg"></img>
 
-<img height="400" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/location.jpg"></img>
-
-<img height="400" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/details-page.jpg"></img>
+<img height="500" hspace="20" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/car-listing.jpg"></img>
+<img height="500" hspace="20" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/location.jpg"></img>
+<img height="500" hspace="20" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/details-page.jpg"></img>
 
  
  # Structure:
