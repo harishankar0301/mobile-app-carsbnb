@@ -26,7 +26,10 @@ users to rent cars and put up used cars for rent.
  </ul>
 
  # Preview
-<img height="300" src="https://github.com/harishankar0301/mobile-app-carsbnb/images/car-listing.jpg"></img>
+<img height="300" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/car-listing.jpg"></img>
+<img height="300" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/location.jpg"></img>
+<img height="300" src="https://github.com/harishankar0301/mobile-app-carsbnb/blob/master/images/details-page.jpg"></img>
+
  
  # Structure:
 src folder has the frontend React code, backend folder has the node.js code.
