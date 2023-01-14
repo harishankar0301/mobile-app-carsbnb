@@ -58,7 +58,7 @@ export default function CarListing({ imgBasePath }) {
         console.log(longitude);
 
         let res = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
-        // let res = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=7bfc02c9ef3fced89f58f10e2978f81c`);
+        
         //let res = [{ "name": "Chennai", "local_names": { "te": "చెన్నై", "ta": "சென்னை", "hi": "चेन्नई", "fr": "Chennai", "bn": "চেন্নাই", "ru": "Ченнаи", "ml": "ചെന്നൈ", "he": "צ'נאי", "zh": "金奈", "kn": "ಚೆನ್ನೈ", "ja": "チェンナイ", "uk": "Ченнаї", "lt": "Čenajus", "mr": "चेन्नई", "ur": "چنئی", "ko": "첸나이", "de": "Chennai", "pl": "Ćennaj", "tr": "Madras", "cs": "Čennaí", "en": "Chennai", "ar": "تشيناي" }, "lat": 13.0836939, "lon": 80.270186, "country": "IN", "state": "Tamil Nadu" }]
         let data = await res.json();
         console.log(data);
