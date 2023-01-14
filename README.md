@@ -1,4 +1,4 @@
-# Hybrid Native Mobile App - CarsBnb
+# Hybrid Mobile App - CarsBnb
 
 A cross platform mobile app for Car Sharing. 
 
